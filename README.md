@@ -1,78 +1,68 @@
-# React + TypeScript + Vite
+# Helpdesk Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Internal IT service desk platform for employees, technicians, and administrators.
 
-Currently, two official plugins are available:
+## Workspace structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+frontend/  React + Vite application
+backend/   Express + Socket.IO API and Prisma database layer
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Requirements
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js 22+
+- PostgreSQL 18+
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Install
 
+From the repository root:
+
+```powershell
+npm install
+```
+
+Copy the backend environment template and set the local PostgreSQL password:
+
+```powershell
+Copy-Item backend/.env.example backend/.env
+```
+
+## Development
+
+Start the frontend:
+
+```powershell
+npm run dev:frontend
+```
+
+Start the backend in a second terminal:
+
+```powershell
+npm run dev:backend
+```
+
+The frontend runs on `http://localhost:5173` and proxies `/api` requests to the backend on port `4000`.
+
+Check the API:
+
+```powershell
+Invoke-RestMethod http://localhost:4000/api/health
+```
+
+## Database commands
+
+```powershell
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
+
+The initial Prisma schema is in `backend/prisma/schema.prisma`. Authentication, ticket APIs, Cloudinary uploads, and the complete database model will be added in the next backend milestone.
+
+## Verification
+
+```powershell
+npm run lint
+npm run build
 ```
