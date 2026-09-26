@@ -12,29 +12,150 @@ enum Role {
   ADMIN
 }
 
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TicketStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  WAITING_FOR_USER
+  RESOLVED
+  CLOSED
+}
+
+enum AssetStatus {
+  IN_USE
+  AVAILABLE
+  UNDER_REPAIR
+  DECOMMISSIONED
+}
+
+model Department {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  users     User[]
+  assets    Asset[]
+  createdAt DateTime @default(now())
+}
+
 model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(USER)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  tickets      Ticket[] @relation("RequesterTickets")
-  assignments  Ticket[] @relation("AssignedTickets")
+  id              String          @id @default(cuid())
+  name            String
+  email           String          @unique
+  passwordHash    String
+  role            Role            @default(USER)
+  departmentId    String?
+  department      Department?     @relation(fields: [departmentId], references: [id])
+  createdTickets  Ticket[]        @relation("TicketCreator")
+  assignedTickets Ticket[]        @relation("TicketAssignee")
+  comments        TicketComment[]
+  attachments     Attachment[]
+  maintenances    Maintenance[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 }
 
 model Ticket {
-  id          String   @id @default(cuid())
-  number      String   @unique
-  title       String
-  description String
-  status      String   @default("OPEN")
-  priority    String   @default("MEDIUM")
-  requesterId String
-  assigneeId  String?
-  requester   User     @relation("RequesterTickets", fields: [requesterId], references: [id])
-  assignee    User?    @relation("AssignedTickets", fields: [assigneeId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String          @id @default(cuid())
+  ticketNumber String          @unique
+  title        String
+  description  String
+  category     String          @default("General")
+  priority     TicketPriority  @default(MEDIUM)
+  status       TicketStatus    @default(OPEN)
+  creatorId    String
+  creator      User            @relation("TicketCreator", fields: [creatorId], references: [id])
+  technicianId String?
+  technician   User?           @relation("TicketAssignee", fields: [technicianId], references: [id])
+  assetId      String?
+  asset        Asset?          @relation(fields: [assetId], references: [id])
+  rating       Int?
+  feedback     String?
+  comments     TicketComment[]
+  attachments  Attachment[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model TicketComment {
+  id         String   @id @default(cuid())
+  ticketId   String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  message    String
+  isInternal Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model Attachment {
+  id           String   @id @default(cuid())
+  ticketId     String
+  ticket       Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  uploadedById String
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
+  url          String
+  fileName     String
+  fileType     String
+  fileSize     Int
+  createdAt    DateTime @default(now())
+}
+
+model Asset {
+  id           String        @id @default(cuid())
+  assetTag     String        @unique
+  type         String
+  brand        String
+  model        String
+  serialNumber String        @unique
+  status       AssetStatus   @default(AVAILABLE)
+  assignedTo   String?
+  departmentId String?
+  department   Department?   @relation(fields: [departmentId], references: [id])
+  tickets      Ticket[]
+  maintenances Maintenance[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Maintenance {
+  id           String   @id @default(cuid())
+  assetId      String
+  asset        Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  technicianId String
+  technician   User     @relation(fields: [technicianId], references: [id])
+  type         String
+  notes        String
+  performedAt  DateTime @default(now())
+  nextDueAt    DateTime?
+  createdAt    DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String
+  metadata  Json?
+  createdAt DateTime @default(now())
 }

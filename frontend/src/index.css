@@ -1,5 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
-:root { font-family: 'DM Sans', 'Segoe UI', sans-serif; color: #18333d; background: #f5f9f8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
-body { margin: 0; min-width: 320px; }
+:root {
+  --primary-blue: #2185D5;
+  --dark-slate-1: #303841;
+  --dark-slate-2: #3A4750;
+  --light-bg: #F3F3F3;
+  --white: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-muted: #64748B;
+  
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--dark-slate-1);
+  background-color: var(--light-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--light-bg);
+  color: var(--dark-slate-1);
+}

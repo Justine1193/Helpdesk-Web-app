@@ -1,0 +1,309 @@
+/* Login.css - Simple, clean, and clear authentication styling */
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F3F3F3;
+  padding: 24px 16px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #303841;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  background-color: #FFFFFF;
+  border: 1px solid #D8E0E5;
+  border-radius: 8px;
+  padding: 32px 28px;
+  box-shadow: 0 4px 16px rgba(48, 56, 65, 0.08);
+}
+
+/* Brand Header */
+.login-brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: #2185D5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.login-brand h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #303841;
+  margin: 0;
+}
+
+.login-brand p {
+  font-size: 13px;
+  color: #3A4750;
+  margin: 4px 0 0;
+}
+
+/* Tabs */
+.auth-tabs {
+  display: flex;
+  background-color: #F3F3F3;
+  border-radius: 6px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+.tab-item {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: #3A4750;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-item.active {
+  background-color: #FFFFFF;
+  color: #2185D5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Alerts */
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.auth-alert.error {
+  background-color: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  color: #991B1B;
+}
+
+.auth-alert.success {
+  background-color: #DCFCE7;
+  border: 1px solid #86EFAC;
+  color: #166534;
+}
+
+/* Form Groups */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #303841;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #2185D5;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 11px;
+  color: #3A4750;
+  pointer-events: none;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #303841;
+  background-color: #FFFFFF;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-box select {
+  padding-left: 12px;
+}
+
+.input-box input:focus,
+.input-box select:focus {
+  border-color: #2185D5;
+  box-shadow: 0 0 0 2px rgba(33, 133, 213, 0.15);
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #3A4750;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-eye:hover {
+  color: #303841;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #3A4750;
+  cursor: pointer;
+}
+
+.checkbox-item input[type='checkbox'] {
+  accent-color: #2185D5;
+  cursor: pointer;
+}
+
+/* Primary Button */
+.btn-primary {
+  width: 100%;
+  padding: 11px 16px;
+  background-color: #2185D5;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  margin-top: 4px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #1a6cb0;
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 9px 14px;
+  background-color: #FFFFFF;
+  color: #303841;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #F3F3F3;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #E2E8F0;
+  text-align: center;
+  font-size: 11px;
+  color: #3A4750;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(48, 56, 65, 0.45);
+  padding: 16px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 380px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.modal-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #303841;
+  margin: 0 0 6px;
+}
+
+.modal-card p {
+  font-size: 12px;
+  color: #3A4750;
+  margin: 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
